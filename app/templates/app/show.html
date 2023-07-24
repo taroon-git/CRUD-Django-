@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Table Page</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Data</h1>
+    <table>
+        <thead>
+            <tr>
+                
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        {% if key1 %}
+        <tbody>
+            {% for i in key1 %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.Firstname}}</td>
+                <td>{{i.lastname}}</td>
+                <td>{{i.Email}}</td>
+                <td>{{i.Contact}}</td>  
+
+                <td>
+                    <form name="EditForm" action = "{% url 'editpage' pk=i.id %}" method="POST">
+                        {% csrf_token %}
+                    <input type = "submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form name="DeleteForm" action = "{% url 'delete' pk=i.id %}" method="POST">
+                        {% csrf_token %}
+                    <input type = "submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% endif %}
+    </table>
+</body>
+</html>
